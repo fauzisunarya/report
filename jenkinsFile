@@ -48,7 +48,7 @@ pipeline{
 
     post{
         always{
-            allure includeProperties: false, jdk: 'C:\sdk\jdk-11.0.17', results: [[path: 'allure-results']]
+            allure includeProperties: false, jdk: 'C:/sdk/jdk-11.0.17', results: [[path: 'allure-results']]
         }
     }
 }
