@@ -1,5 +1,6 @@
 import groovy.json.JsonOutput
 
+
 def  COLOR_MAP =[
     'SUCCESS' : 'good',
     'FAILURE' : 'danger',
@@ -13,8 +14,9 @@ pipeline{
     agent any
 
     environment{
-        BUILD-USER = ''
+        BUILD_USER = ''
     }
+
     options{
         ansiColor('xterm')
     }
@@ -30,7 +32,7 @@ pipeline{
         stage('Testing'){
             steps{
                 bat "npm i"
-                bat "npx cypress run --browser chrome --spec cypress/e2e/2-advanced-examples/**.js"
+                bat "npx cypress run --browser chrome --spec cypress/e2e/1-getting-started/**.js"
                 // bat "npx cypress run --browser ${BROWSER} --spec ${SPEC}"
             }
         }
