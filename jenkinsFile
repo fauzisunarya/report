@@ -28,7 +28,7 @@ pipeline{
                 // }
 
                 script{
-                    env.JAVA_HOME ='C:\sdk\jdk-11.0.17'
+                    env.JAVA_HOME ='C:/sdk/jdk-11.0.17'
                 }
             }
         }
