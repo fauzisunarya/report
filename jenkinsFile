@@ -1,18 +1,11 @@
 pipeline{
 
     agent any
+    
 
-    buildPlugin(
-    forkCount: '1C', // run this number of tests in parallel for faster feedback.  If the number terminates with a 'C', the value will be multiplied by the number of available CPU cores
-    useContainerAgent: true, // Set to `false` if you need to use Docker for containerized tests
-    configurations: [
-        [platform: 'linux', jdk: 21],
-        [platform: 'windows', jdk: 11],
-    ])
-
-    // environment {
-    //     JAVA_HOME = 'C:/sdk/jdk-11.0.17'
-    // }
+    environment {
+        JAVA_HOME = 'C:/sdk/jdk-11.0.17'
+    }
 
     // parameters{
     //     string(name: 'SPEC', defaultValue: "cypress/e2e/2-advanced-examples/**.js", description: "masukan folder project cypress")
@@ -26,7 +19,7 @@ pipeline{
     stages{
         stage('Building'){
             steps{
-                echo "Building the application"
+                // echo "Building the application"
                 // script {
                 //     // Set JAVA_HOME
                 //     withEnv(["JAVA_HOME=${env.JAVA_HOME}"]) {
@@ -35,9 +28,10 @@ pipeline{
                 //     }
                 // }
 
-                // script{
-                //     env.JAVA_HOME ='C:/sdk/jdk-11.0.17'
-                // }
+                script {
+                    sh 'echo $JAVA_HOME'
+                    // Your build steps here
+                }
             }
         }
         stage('Testing'){
