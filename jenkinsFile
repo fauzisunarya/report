@@ -28,20 +28,25 @@ pipeline{
         stage('Testing'){
             steps{
                 bat "npm i"
+                // bat "npx cypress run --browser chrome --spec cypress/e2e/2-advanced-examples/**.js --env allure=true"
                 // bat "npx cypress run --browser ${BROWSER} --spec ${SPEC}"
             }
         }
-        stage('Deploying'){
+        stage('Generate Allure Report'){
             steps{
-                echo "Deploy the application"
+                script{
+                    allure includeProperties: false, jdk: '', results: [[path: 'allure-results']]
+
+                }
+                // echo "Deploy the application"
 
             }
         }
     }
 
-    post{
-        always{
-            allure includeProperties: false, jdk: '', results: [[path: 'allure-results']]
-        }
-    }
+    // post{
+    //     always{
+    //         allure includeProperties: false, jdk: '', results: [[path: 'allure-results']]
+    //     }
+    // }
 }
