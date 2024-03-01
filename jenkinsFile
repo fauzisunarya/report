@@ -1,17 +1,5 @@
 pipeline{
-
     agent any
-    
-
-    // environment {
-    //     JAVA_HOME = 'C:/sdk/jdk-11.0.17'
-    // }
-
-    // parameters{
-    //     string(name: 'SPEC', defaultValue: "cypress/e2e/2-advanced-examples/**.js", description: "masukan folder project cypress")
-    //     choice(name: 'BROWSER', choice: ['chrome, edge, firefox'], description: "Pilih browser")
-    // }
-
     options{
         ansiColor('xterm')
     }
@@ -19,7 +7,6 @@ pipeline{
     stages{
         stage('Building'){
             steps{
-                // echo "Building the application"
                 script{
                     env.JAVA_HOME ='C:/sdk/jdk-11.0.17'
                 }
@@ -28,7 +15,7 @@ pipeline{
         stage('Testing'){
             steps{
                 bat "npm i"
-                // bat "npx cypress run --browser chrome --spec cypress/e2e/2-advanced-examples/**.js --env allure=true"
+                bat "npx cypress run --browser chrome --spec cypress/e2e/2-advanced-examples/**.js --env allure=true"
                 // bat "npx cypress run --browser ${BROWSER} --spec ${SPEC}"
             }
         }
@@ -38,15 +25,7 @@ pipeline{
                     allure includeProperties: false, jdk: '', results: [[path: 'allure-results']]
 
                 }
-                // echo "Deploy the application"
-
             }
         }
     }
-
-    // post{
-    //     always{
-    //         allure includeProperties: false, jdk: '', results: [[path: 'allure-results']]
-    //     }
-    // }
 }
