@@ -26,6 +26,10 @@ pipeline{
                 //         // Your build steps here
                 //     }
                 // }
+
+                script{
+                    env.JAVA_HOME ='C:\sdk\jdk-11.0.17'
+                }
             }
         }
         stage('Testing'){
