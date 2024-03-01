@@ -1,11 +1,26 @@
+import groovy.json.JsonOutput
+
+def  COLOR_MAP =[
+    'SUCCESS' : 'good',
+    'FAILURE' : 'danger',
+]
+
+def getBuildUser(){
+    return currentBuild.rawBuild.getCause(Cause.UserIdCause).getUserId()
+}
+
 pipeline{
     agent any
+
+    environment{
+        BUILD-USER = ''
+    }
     options{
         ansiColor('xterm')
     }
 
     stages{
-        stage('Building'){
+        stage('Build'){
             steps{
                 script{
                     env.JAVA_HOME ='C:/sdk/jdk-11.0.17'
@@ -22,6 +37,10 @@ pipeline{
         stage('Generate Allure Report'){
             steps{
                 script{
+                    BUILD_USER = getBuildUser()
+                    slackSend channel: '#rids',
+                              color: COLOR_MAP[currentBuild.currentResult],
+                              message: "*${currentBuild.currentResult}:* ${env.JOB_NAME} build ${env.BUILD_NUMBER} \n Test: Chrome executed at Chrome \n More informaton at: ${env.BUILD_URL}allure/"
                     allure includeProperties: false, jdk: '', results: [[path: 'allure-results']]
 
                 }
