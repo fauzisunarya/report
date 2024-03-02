@@ -17,6 +17,11 @@ pipeline{
         BUILD_USER = ''
     }
 
+    parameters {
+        string(name: 'SPEC', defaultValue: 'cypress/integration/**/**', description: 'Tentukan lokasi project yang ingin di test')
+        choice(name: 'BROWSER', choices: ['chrome', 'edge', 'firefox'], description: 'Pilih browser web yang ingin anda gunakan untuk menjalankan testing')
+    }
+
     options{
         ansiColor('xterm')
     }
@@ -32,8 +37,8 @@ pipeline{
         stage('Testing'){
             steps{
                 bat "npm i"
-                bat "npx cypress run --browser chrome --spec cypress/e2e/2-advanced-examples/**.js --env allure=true"
-                // bat "npx cypress run --browser ${BROWSER} --spec ${SPEC}"
+                // bat "npx cypress run --browser chrome --spec cypress/e2e/2-advanced-examples/**.js --env allure=true"
+                bat "npx cypress run --browser ${BROWSER} --spec ${SPEC} --env allure=true"
             }
         }
         stage('Generate Allure Report'){
