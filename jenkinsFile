@@ -18,7 +18,7 @@ pipeline{
     }
 
     parameters {
-        string(name: 'SPEC', defaultValue: 'cypress/integration/**/**', description: 'Tentukan lokasi project yang ingin di test')
+        string(name: 'SPEC', defaultValue: 'cypress/e2e/**/**', description: 'Tentukan lokasi project yang ingin di test')
         choice(name: 'BROWSER', choices: ['chrome', 'edge', 'firefox'], description: 'Pilih browser web yang ingin anda gunakan untuk menjalankan testing')
     }
 
